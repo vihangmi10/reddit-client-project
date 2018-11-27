@@ -1,16 +1,17 @@
-const express = require('express')
-const path = require('path')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 
-const users = require('./routes/users')
+import users from './routes/users';
+import index from './routes/index';
+const app = express();
 
-const app = express()
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
+app.use('/', index);
+app.use('/api/v1/users', users);
 
-app.use('/api/v1/users', users)
-
-module.exports = app
+module.exports = app;
