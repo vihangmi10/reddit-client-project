@@ -22,7 +22,6 @@ const getNewPosts = async (req, typeOfPost) => {
     let postsInJson = JSON.parse(postsFromReddit);
     const total_posts = postsInJson.data.dist;
     let posts = postsInJson.data.children;
-    //console.log('Posts ---- ', posts);
     let after = postsInJson.data.after ? postsInJson.data.after : posts[total_posts-1].data.name;
     let afterURL = `http://localhost:3000/${typeOfPost}?after=${after}`;
 
