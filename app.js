@@ -2,20 +2,21 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import cons from 'consolidate';
-
 import users from './routes/users';
 import index from './routes/index';
+
 const app = express();
+app.locals.moment = require('moment');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // view engine setup
-app.engine('html', cons.swig);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
+app.set('view engine', 'pug');
+
 
 //Routes
 app.use('/', index);

@@ -1,16 +1,21 @@
 import request from 'request-promise';
 
-const getRandomPost = async (req) => {
-    let redditPost;
+const getRandomPost = async (req, res) => {
+    let redditPosts;
     let randomPostUrl = 'http://www.reddit.com/r/all/random.json';
     let post = await request.get(randomPostUrl);
     let jsonPost = JSON.parse(post);
     if (jsonPost.length !== 0) {
-        redditPost = jsonPost[0].data.children;
+        redditPosts = jsonPost[0].data.children;
     } else {
         throw new Error('Reddit api did not return an array');
     }
-    return redditPost;
+    console.log(redditPosts);
+    let subRedditObject = {
+        redditPosts: redditPosts
+    };
+   return subRedditObject;
+
 
 };
 

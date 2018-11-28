@@ -1,0 +1,32 @@
+html
+    head
+        title Redit Posts
+        link(rel='stylesheet' href="/stylesheets/randomPost.css")
+    body
+        div(class="post-container")
+            each post in postsObject.redditPosts
+                div(class="post-card")
+                    div(class="author-information")
+                        span(class="thumbnail")
+                            if (post.data.thumbnail).includes('https')
+                                img(src=post.data.thumbnail)
+                            else
+                                img(src="/images/author-placeholder.png")
+                        a( class="sub-redit" href="https://www.reddit.com/" + post.data.subreddit_name_prefixed)
+                            span #{post.data.subreddit_name_prefixed}.
+                        span Posted By
+                        span(class="author-name") #{post.data.author}
+                        span #{moment.unix(post.data.created_utc).calendar()}
+                    a(href=post.data.url)
+                        h2 #{post.data.title}
+                    div
+                        if post.data.selftext
+                            p!= post.data.selftext
+
+                    div(class="social-media")
+                        span Comments
+                        span Share
+                        span Save
+//is_video
+selftext_html
+

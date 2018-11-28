@@ -21,7 +21,7 @@ const getNewPosts = async (req, typeOfPost) => {
     let postsInJson = JSON.parse(postsFromReddit);
     const total_posts = postsInJson.data.dist;
     let posts = postsInJson.data.children;
-
+    console.log('Posts ---- ', posts);
     let after = postsInJson.data.after ? postsInJson.data.after : posts[total_posts-1].data.name;
 
     if(page_number > 1) {
@@ -34,7 +34,6 @@ const getNewPosts = async (req, typeOfPost) => {
         nextPosts: after,
         redditPosts: posts
     };
-
     return subRedditObject;
 };
 export default getNewPosts;
