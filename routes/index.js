@@ -3,7 +3,7 @@ import getNewPost from '../handler/subredditPosts';
 import getRandomPost from '../handler/randomPost';
 const router = express.Router();
 
-router.get('/', async (req, res)=> {
+router.get('/new', async (req, res)=> {
     let typeOfPost = 'new';
     let postsToSend = await getNewPost(req, typeOfPost);
     res.render('redditPostPage', {postsObject: postsToSend});

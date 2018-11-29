@@ -2,31 +2,50 @@ html
     head
         title Redit Posts
         link(rel='stylesheet' href="/stylesheets/randomPost.css")
+        
     body
-        div(class="post-container")
-            each post in postsObject.redditPosts
-                div(class="post-card")
-                    div(class="author-information")
-                        span(class="thumbnail")
-                            if (post.data.thumbnail).includes('https')
-                                img(src=post.data.thumbnail)
-                            else
-                                img(src="/images/author-placeholder.png")
-                        a( class="sub-redit" href="https://www.reddit.com/" + post.data.subreddit_name_prefixed)
-                            span #{post.data.subreddit_name_prefixed}.
-                        span Posted By
-                        span(class="author-name") #{post.data.author}
-                        span #{moment.unix(post.data.created_utc).calendar()}
-                    a(href=post.data.url)
-                        h2 #{post.data.title}
-                    div
-                        if post.data.selftext
-                            p!= post.data.selftext
+        div(class="header")
+            img(class="logo" src="/images/reddit-icon.png")
+            p(class="logo-title") reddit
+        div(class="main")
+            ul(class="post-dropdown")
+                li(class="dropdown-element") 
+                    a(class="dropdown-link hot" href="http://localhost:3000/hot?page=1") Hot
+                li(class="dropdown-element") 
+                    a(class="dropdown-link random" href="http://localhost:3000/random") Random
+                li(class="dropdown-element") 
+                    a(class="dropdown-link top" href="http://localhost:3000/top?page=1") Top
+                li(class="dropdown-element")
+                    a(class="dropdown-link new" href="http://localhost:3000/new?page=1") New
+            div(class="post-container")
+                each post in postsObject.redditPosts
+                    div(class="post-card")
+                        div(class="author-information")
+                            span(class="thumbnail")
+                                if (post.data.thumbnail).includes('https')
+                                    img(src=post.data.thumbnail)
+                                else
+                                    img(src="/images/author-placeholder.png")
+                            a( class="sub-redit" href="https://www.reddit.com/" + post.data.subreddit_name_prefixed)
+                                span #{post.data.subreddit_name_prefixed}.
+                            span Posted By
+                            span(class="author-name") #{post.data.author}
+                            span #{moment.unix(post.data.created_utc).calendar()}
+                        a(href=post.data.url)
+                            h3 #{post.data.title}
+                        div
+                            if post.data.selftext
+                                p!= post.data.selftext
 
-                    div(class="social-media")
-                        span Comments
-                        span Share
-                        span Save
-//is_video
-selftext_html
+                        div(class="social-media")
+                            span Comments
+                            span Share
+                            span Save
+                div(class="pagination")
+                    span(class="btn previousbtn")
+                        a(data-href=postsObject.previousPostsURL) << previous
+                    span(class="btn nextbtn")
+                        a(data-href=postsObject.nextPostsURL) next >>
+
+        script(src='/javascript/main.js')
 
